@@ -27,5 +27,5 @@ businesses = response.json()["businesses"]
 # Make list comprehention item for item in iterable then filter; check if the business has a rating number 4.5 or more and get them 
 names = [business["name"] for business in businesses if business["rating"] > 4.5]
 
-# Finally print the results
+# Finally print the result
 print(names)
