@@ -4,7 +4,7 @@ import requests
 # Store the yelp search endpoint in a variable 
 url = "https://api.yelp.com/v3/businesses/search"
 
-# Use python environment variable, os module get method retrives yelp_api_key from local and store in api_key variable 
+# Use python environment variable, os module get method retrives yelp_api_key from the local machine which is stored in api_key variable 
 api_key = os.environ.get("yelp_api_key")
 
 # Dictionary with key: value to authenticate the yelp api to tell who we are
