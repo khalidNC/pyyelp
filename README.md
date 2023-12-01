@@ -70,8 +70,7 @@ We are going to create a new project let's name it pyyelp. This project sends ht
                            In the header section we have few headers that specify a few metadata about this request. These headers are key: value pairs. One of this headers is authorization header which is define in the http protocol, we this header to tell the web server who we are. Let's take a look how to do that in code:
 
 ## 6. Refactor the code:
-                        a. To make the code little cleaner, put the endpoint url in a separate varibale. And the
-                           code looks like
+                        a. To make the code little cleaner, put the endpoint url in a separate varibale. And the code looks like:
 ```python
                            import requests
 
