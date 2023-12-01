@@ -26,7 +26,7 @@ We are going to create a new project let's name it pyyelp. This project sends ht
                             requests.get()
 ```
                         f. Here we need to pass a str "url" the url is the address of the endpoint. To get this visit
-                           [yelp site on fusion api doc page:]([url](https://docs.developer.yelp.com/docs/fusion-intro))
+                           yelp site on fusion api doc page: https://docs.developer.yelp.com/docs/fusion-intro
                            here you find business search endpoint: https://api.yelp.com/v3/businesses/search
                            just copy this address and pass as parameter in get method. So the code comes like,
 ```python
