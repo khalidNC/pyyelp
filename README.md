@@ -1,14 +1,14 @@
-# pyyelp
+# **Python Yelp Api**
 We are going to create a new project let's name it pyyelp. This project sends http request to Yelp api to get list of business. The full process of the project will be documented here breaking down step by step:
 
-# 1. Create a new project:
+## 1. Create a new project:
                         a. Open the terminal
                         b. And create a root diectory: Terminal command: mkdir pyyelp
                         c. Open the directory in VScode: Terminal command: code .
                         d. Make a source directory under root directory: name it for example, src
                         e. Then create a py file inside src directory named e.g app.py
 
-# 2. Virtual environment & Install packages:
+## 2. Virtual environment & Install packages:
                         a. Open terminal in vscode
                         b. Install request package: Terminal command: pipenv install requests
                            This will create a virtual environment as well as install the package.
@@ -16,40 +16,46 @@ We are going to create a new project let's name it pyyelp. This project sends ht
                         c. Then change the virtual environment for the pyyelp project in vscode.
                         d. At this point if vscode suggets to install linter pylint then go ahead and install it
                         
-# 3. Start codding:
+## 3. Start coding:
                         a. Go to app.py file
                         b. Import request package
                         c. Then use get method to get data. The code will be like:
+```python
                             import requests
 
                             requests.get()
-                        f. Here we need to pass a str "url" the url is the address of the endpoint. To get the
-                           yelp site on fusion api doc page: https://docs.developer.yelp.com/docs/fusion-intro
+```
+                        f. Here we need to pass a str "url" the url is the address of the endpoint. To get this visit
+                           [yelp site on fusion api doc page:](https://docs.developer.yelp.com/docs/fusion-intro).
                            here you find business search endpoint: https://api.yelp.com/v3/businesses/search
                            just copy this address and pass as parameter in get method. So the code comes like,
-
+```python
                            import requests
 
                            requests.get("https://api.yelp.com/v3/businesses/search")
+```
 
                         g. This get method returns a response object. We created a variable called response. So the
-                           code is now: response = requests.get("https://api.yelp.com/v3/businesses/search")
-
+                           code is now: 
+```python
+                           response = requests.get("https://api.yelp.com/v3/businesses/search")
+```
                         h. At this point, vscode may suggest to install code formatter for this virtual environment
                            so let's install it.
                         i. Now pirnt the response. The code now looks like:
-
+```python
                             import requests
 
                             response = requests.get("https://api.yelp.com/v3/businesses/search")
 
                             print(response)
+```
 
-# 4. Run the code and get output:
-                        a. Now save the chnages and run the code
+## 4. Run the code and get output:
+                        a. Now save the changes and run the code
                         b. OutPut: <Response [401]>
 
-# 5. Authentication:
+## 5. Authentication:
                         a. The 401 is the status of one of the standard http error codes.
                         b. If you search the 401 in google you see this error indicates unauthorized request. In
                            this case, we got this error because we did not tell yelp who we are. So every time we want to call any of the endpoints of Yelp we need to send the key to tell Yelp who we are. This is we call authentication. 
@@ -63,32 +69,34 @@ We are going to create a new project let's name it pyyelp. This project sends ht
                            http requests have two sections, or two components. Header section and Payload section.
                            In the header section we have few headers that specify a few metadata about this request. These headers are key: value pairs. One of this headers is authorization header which is define in the http protocol, we this header to tell the web server who we are. Let's take a look how to do that in code:
 
-# 6. Refactor the code:
+## 6. Refactor the code:
                         a. To make the code little cleaner, put the endpoint url in a separate varibale. And the
                            code looks like
-
+```python
                            import requests
-
 
                            url = "https://api.yelp.com/v3/businesses/search"
                            response = requests.get(url)
                            print(response)
-
+```
                         b. Now the get method optionally takes keyword arguments, one of them is headers(we can
                            read more on this on the requests package documentation: https://pypi.org/project/requests/). We can set the headers as dictionary of key:value pairs; headers={}
-                           and the code looks like: response = requests.get(url, headers={key: value})
-
+                           and the code looks like:
+```python
+                                                response = requests.get(url, headers={key: value})
+```
                         c. For clearity, create the dictionary and keep in a separate variable called headers. 
                            The dictionary syntax: 
-                                                 variable = {"key": "value " + api_key}
+ ```python
+                                                variable = {"key": "value " + api_key}
+ ```
 
                            Note: We can find the api key on Yelp manage app page. And for clearity, keep the api_key in a separate varibale called api_key.
 
                            So the codes looks now:
-
+```python
                            import requests
 
-                           
                            url = https://api.yelp.com/v3/businesses/search 
                            api_key = "pjOSpM8jM5cnjryyOYWyROmoJgz_REijnieChEIJopCw-KTGWRM7nWof-tTXauSDNt-BDsPiA6uQ1jnUCemauAGqG0bpzy7RgTWMZWJ1KkFIi3_UTq2LERHBIRHBFIddfZXYx"
                            headers = {
@@ -96,8 +104,8 @@ We are going to create a new project let's name it pyyelp. This project sends ht
                            }
                            response = requests.get(url, headers=headers)
                            print(response)
-
-# 7. Run the code and get output:
+```
+## 7. Run the code and get output:
                         a. Now save the change and run the codes once again
                         b. This time we get output: <Response 400>
                         c. This is a different status code 400 which means a bad request. 
@@ -111,7 +119,7 @@ We are going to create a new project let's name it pyyelp. This project sends ht
                            This output is a josn object with the property called error. which is set to another json object. 
                         f. Now refactor the codes once again with the help of Yelp documentation.
 
-# 8. Refactor codes once again:
+## 8. Refactor codes once again:
                         a. Go to Yelp documentation: https://docs.developer.yelp.com/reference/v3_business_search
                         b. Here we can see the parameters that are must required to set in the request. 
                            For example, location parameter.
@@ -121,10 +129,9 @@ We are going to create a new project let's name it pyyelp. This project sends ht
                            So the params dictionary syntax:
                                                       variable = {"key": "geo_location"}
                            The code looks like now:
-
+```python
                            import requests
 
-                           
                            url = https://api.yelp.com/v3/businesses/search 
                            api_key = "pjOSpM8jM5cnjryyOYWyROmoJgz_REijnieChEIJopCw-KTGWRM7nWof-tTXauSDNt-BDsPiA6uQ1jnUCemauAGqG0bpzy7RgTWMZWJ1KkFIi3_UTq2LERHBIRHBFIddfZXYx"
                            headers = {
@@ -135,29 +142,30 @@ We are going to create a new project let's name it pyyelp. This project sends ht
                            }
                            response = requests.get(url, headers=headers, params=params)
                            print(response.text)
-
-# 9. Run the codes and get output:
+```
+## 9. Run the codes and get output:
                         a. Now save the changes and run the program
                         b. This time we did not get error instead we get the json object that includes a list of
                            businesses in New York city. 
                         c. Now we can fiter this.
 
-# 10. Refactor codes filtering the results:
+## 10. Refactor codes filtering the results:
                         a. In the params dictionary we set another key: value pairs like "term": "Barber"
+```python
                            params = {
                             "term": "Barber",
                             "Location": "NYC"
                            }
+```
                         b. This will return only the barbers in New York city in the terminal.
                         c. And if you scroll at the top you see in this json object has property called businesses
                            and this is set to a list/array because we have a square bracket. In this array, we have bunch of json objects because we have curly brackets. 
                         d. Now back to the code on response object now instead text attribute we are going to call
                            json method and this will convert the result in a dictionary. And we can store the result in a variable called result.
                            So the codes look like;
-
+```python
                            import requests
 
-                           
                            url = https://api.yelp.com/v3/businesses/search 
                            api_key = "pjOSpM8jM5cnjryyOYWyROmoJgz_REijnieChEIJopCw-KTGWRM7nWof-tTXauSDNt-BDsPiA6uQ1jnUCemauAGqG0bpzy7RgTWMZWJ1KkFIi3_UTq2LERHBIRHBFIddfZXYx"
                            headers = {
@@ -169,14 +177,13 @@ We are going to create a new project let's name it pyyelp. This project sends ht
                            response = requests.get(url, headers=headers, params=params)
                            result = response.json()
                            print(result)
-
+```
                         e. Another thing as we see the dictionary returns in the terminal has key called businesses 
                            and it set to a list so we can immediately access this key and code looks like:
                            result = response.json()["businesses"] and let's change the result variable to businesses. Now we have a list of dictionaries. The codes looks like this;
-
+```python
                            import requests
 
-                           
                            url = https://api.yelp.com/v3/businesses/search 
                            api_key = "pjOSpM8jM5cnjryyOYWyROmoJgz_REijnieChEIJopCw-KTGWRM7nWof-tTXauSDNt-BDsPiA6uQ1jnUCemauAGqG0bpzy7RgTWMZWJ1KkFIi3_UTq2LERHBIRHBFIddfZXYx"
                            headers = {
@@ -188,25 +195,24 @@ We are going to create a new project let's name it pyyelp. This project sends ht
                            response = requests.get(url, headers=headers, params=params)
                            businesses = response.json()["businesses"]
                            print(businesses)
-
-# 11. Run the codes and get output:
+```
+## 11. Run the codes and get output:
                         a. Run the program and it rutunrs a list of dictionaries with key: value
                         b. The key like: id, alias, name etc
 
-# 12. Refactor codes with more filter:
+## 12. Refactor codes with more filter:
                         a. Now let's say we want to get only the name of the businesses
                         b. Then just iterate over the list. We will get the each dictionary and 
                            extract the value of the name key.
                         c. So the iteration will be:
-                           
+```python
                            for business in businesses:
                                 print(business["name"])
-
+```
                         d. The code looks like now:
-                          
+```python                          
                            import requests
 
-                           
                            url = https://api.yelp.com/v3/businesses/search 
                            api_key = "pjOSpM8jM5cnjryyOYWyROmoJgz_REijnieChEIJopCw-KTGWRM7nWof-tTXauSDNt-BDsPiA6uQ1jnUCemauAGqG0bpzy7RgTWMZWJ1KkFIi3_UTq2LERHBIRHBFIddfZXYx"
                            headers = {
@@ -220,13 +226,13 @@ We are going to create a new project let's name it pyyelp. This project sends ht
 
                            for business in businesses:
                                print(business["name"])
-
-# 13. Run the codes and get output:
+```
+## 13. Run the codes and get output:
                         a. Run the program and it rutunrs only the name of business
                         b. Now we can take this to the next level like, we can use list comprehension to get the
                            name of busenesses with rating of 4.5 or above.
 
-# 14. Refactor codes use list comprehention:
+## 14. Refactor codes use list comprehention:
                         a. list comprehention syntax: [item for item in list]
                            Here, 
                            the list is, businesses
@@ -236,10 +242,9 @@ We are going to create a new project let's name it pyyelp. This project sends ht
                            [business["name"] for business in businesses]
                         b. Now we want to filter then name with rating more or equal 4.5 so we will do;
                            if business["rating"] which is another property of the list > 4.5 that added in the list and return. And store the list comprehention in a variable let's say names. So the codes finally looks like:
-
+```python
                            import requests
-
-                           
+           
                            url = https://api.yelp.com/v3/businesses/search 
                            api_key = "pjOSpM8jM5cnjryyOYWyROmoJgz_REijnieChEIJopCw-KTGWRM7nWof-tTXauSDNt-BDsPiA6uQ1jnUCemauAGqG0bpzy7RgTWMZWJ1KkFIi3_UTq2LERHBIRHBFIddfZXYx"
                            headers = {
@@ -253,12 +258,12 @@ We are going to create a new project let's name it pyyelp. This project sends ht
                            
                            names = [business["name"] for business in businesses if business["rating"] > 4.5]
                            print(names)
-
-# 15. Run the codes and get output:
+```
+## 15. Run the codes and get output:
                         a. Run the program and it rutunrs a list of the names of the barbers in New York city with
                            the rating 4.5 or more.
 
-# 16. Secure the api key:
+## 16. Secure the api key:
                      a. We must not hard code the api_key or password in the source code. So we need to hide
                         this information. 
                      b. There are few ways to do this. here we are going to highlight couple of them. One way is
@@ -281,11 +286,13 @@ We are going to create a new project let's name it pyyelp. This project sends ht
                                       a. Go to py file where you want to implement.(restart vs code may needed)
                                       b. import os
                                       c. os has a method .environ.get() it take str: os.environ.get("variable_name")
-                                      d. So en example: 
+                                      d. So en example:
+```python
                                                 api_key = os.environ.get("yelp_api_key")
                                                 headers = {
                                                   "authorization": "Bearer " + api_key
                                                 }
+```
                                       e. Run the program now and it should work.
 
                         2. Hiding keys in a configuration file: Here we will create a configuration file named config.py in 
@@ -295,13 +302,13 @@ We are going to create a new project let's name it pyyelp. This project sends ht
                               i. Create config file:
                                        a. Create config.py file under source directory in VScode
                                        b. Store the api key here in a varibale called yelp_api_key
-                              2. Import module:
+                              ii. Import module:
                                        a. Go to the py file where we need the api key
                                        b. At the top import config
                                        c. then inside the code where we need to access the key from config file access the
                                           yelp_api_key attribute on config.py file using .(dot) oparator. e.g config.api_key
                                        d. Save the changes.
-                              3. Gitignore:
+                              iii. Gitignore:
                                        a. Create gitignore file under the source code
                                        b. Then open the gitignore file
                                        c. Just add the config file here
