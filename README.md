@@ -52,7 +52,7 @@ We are going to create a new project let's name it pyyelp. This project sends ht
 ```
 
 ## 4. Run the code and get output:
-                        a. Now save the changes and run the code
+                        a. Now save the changes and run the code.
                         b. OutPut: <Response [401]>
 
 ## 5. Authentication:
